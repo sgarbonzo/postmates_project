@@ -1,0 +1,9 @@
+
+SELECT AVG(total_delivery_duration)
+FROM (
+	SELECT delivery_id
+		,EXTRACT(EPOCH FROM (when_the_jumpman_arrived_at_dropoff::TIMESTAMP - when_the_delivery_started::TIMESTAMP)) / 60 AS total_delivery_duration
+	FROM gar_bonzo.postmates_new
+	GROUP BY 1
+		,2
+	) b;
